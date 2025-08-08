@@ -1,0 +1,53 @@
+<mat-card class="summary-card">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>analytics</mat-icon>
+      Resumo da Nota Fiscal
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div *ngIf="invoiceItems.length === 0" class="empty-summary">
+      <p>Adicione itens para ver o resumo</p>
+    </div>
+
+    <div *ngIf="invoiceItems.length > 0" class="summary-content">
+      <!-- Estatísticas Principais -->
+      <div class="main-stats">
+        <div class="stat-item">
+          <div class="stat-icon">
+            <mat-icon>receipt</mat-icon>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{ getItemCount() }}</div>
+            <div class="stat-label">Itens</div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-icon">
+            <mat-icon>shopping_cart</mat-icon>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{ getTotalQuantity() }}</div>
+            <div class="stat-label">Quantidade Total</div>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-icon">
+            <mat-icon>attach_money</mat-icon>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{ getTotal() | currency }}</div>
+            <div class="stat-label">Total</div>
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+  </mat-card-content>
+</mat-card> 

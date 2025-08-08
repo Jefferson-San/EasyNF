@@ -1,59 +1,62 @@
-# EasyNF
+# EasyNF - Sistema de Gestão de Produtos e Notas Fiscais
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.5.
+Sistema integrado para gestão de estoque e emissão de notas fiscais desenvolvido em Angular.
 
-## Development server
+## 📋 Pré-requisitos
 
-To start a local development server, run:
+- Node.js (versão 16 ou superior)
+- Angular CLI
+- .NET 6+ (para os serviços backend)
+
+## 🚀 Como Executar
+
+### 1. Serviços Backend
+
+Primeiro, clone e execute os serviços backend necessários:
 
 ```bash
+git clone https://github.com/Jefferson-San/InvoiceProject.git
+cd InvoiceProject
+```
+
+Execute os seguintes serviços em http:
+- **StockService**(porta: 5199): Gerencia produtos e estoque
+- **BillingService**(porta: 5064): Gerencia emissão de notas fiscais
+
+### 2. Frontend Angular
+
+```bash
+# Instalar dependências
+npm install
+# Executar
+npm start
+# Executar em modo de desenvolvimento
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Acesse: `http://localhost:4200`
 
-## Code scaffolding
+## 🔧 Configuração
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Os endpoints dos serviços são configurados em `src/environments/environment.ts`:
 
-```bash
-ng generate component component-name
+```typescript
+export const environment = {
+  stockServiceUrl: 'http://localhost:5199/api/Product',
+  billingServiceUrl: 'http://localhost:5064/api/Invoice'
+};
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 📱 Funcionalidades
 
-```bash
-ng generate --help
-```
+- ✅ Cadastro e gestão de produtos
+- ✅ Controle de estoque
+- ✅ Criação de notas fiscais
+- ✅ Resumo de vendas
+- ✅ Interface responsiva
 
-## Building
+## 🛠️ Tecnologias
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **Frontend**: Angular 17, Angular Material
+- **Backend**: .NET 6, C#
+- **Estilo**: CSS3, Flexbox, Grid

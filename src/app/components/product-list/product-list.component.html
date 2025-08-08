@@ -1,0 +1,69 @@
+<div class="product-list-container">
+  <div class="product-list-header">
+    <h2>
+      <mat-icon>inventory</mat-icon>
+      Produtos Disponíveis
+    </h2>
+    <span class="product-count">{{ products.length }} produto(s)</span>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Carregando produtos...</p>
+  </div>
+
+  <div *ngIf="error" class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="!isLoading && !error && products.length === 0" class="empty-state">
+    <mat-icon>inventory_2</mat-icon>
+    <h3>Nenhum produto cadastrado</h3>
+    <p>Adicione produtos usando o formulário acima</p>
+  </div>
+
+  <div class="products-grid" *ngIf="!isLoading && !error && products.length > 0">
+    <mat-card *ngFor="let product of products" class="product-card" 
+              [class.low-stock]="isLowStock(product)"
+              [class.out-of-stock]="isOutOfStock(product)">
+      
+      <mat-card-header>
+        <mat-card-title class="product-title">{{ product.title }}</mat-card-title>
+        <mat-card-subtitle>
+          <mat-chip [color]="getStockStatus(product).color" selected>
+            {{ getStockStatus(product).text }}
+          </mat-chip>
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="product-details">
+          <div class="price-section">
+            <span class="price-label">Preço:</span>
+            <span class="price-value">{{ product.price | currency }}</span>
+          </div>
+          
+          <div class="stock-section">
+            <span class="stock-label">Estoque:</span>
+            <span class="stock-value" [class.low]="isLowStock(product)">
+              {{ product.stokBalance }} unidade(s)
+            </span>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button 
+          mat-raised-button 
+          color="primary" 
+          [disabled]="isOutOfStock(product)"
+          (click)="onAddToInvoice(product)"
+          class="add-button">
+          <mat-icon>add_shopping_cart</mat-icon>
+          Adicionar à Nota
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div> 

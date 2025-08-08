@@ -1,0 +1,83 @@
+<mat-card class="invoice-form-card">
+  <mat-card-header>
+    <mat-card-title>
+      <mat-icon>receipt</mat-icon>
+      Itens da Nota Fiscal
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div *ngIf="invoiceItems.length === 0" class="empty-invoice">
+      <mat-icon>shopping_cart</mat-icon>
+      <h3>Nenhum item adicionado</h3>
+      <p>Adicione produtos da lista ao lado para criar sua nota fiscal</p>
+    </div>
+
+    <div *ngIf="invoiceItems.length > 0" class="invoice-items">
+      <div *ngFor="let item of invoiceItems" class="invoice-item">
+        <div class="item-info">
+          <div class="item-title">{{ item.productTitle }}</div>
+          <div class="item-price">{{ item.price | currency }}</div>
+        </div>
+        
+        <div class="item-controls">
+          <div class="quantity-controls">
+            <button 
+              mat-icon-button 
+              (click)="onQuantityChange(item, item.amount - 1)"
+              [disabled]="item.amount <= 1"
+              class="quantity-btn">
+              <mat-icon>remove</mat-icon>
+            </button>
+            
+            <mat-form-field appearance="outline" class="quantity-field">
+              <mat-label>Qtd</mat-label>
+              <input 
+                matInput 
+                type="number" 
+                [value]="item.amount"
+                (input)="onQuantityChange(item, +$event.target.value)"
+                min="1"
+                class="quantity-input">
+            </mat-form-field>
+            
+            <button 
+              mat-icon-button 
+              (click)="onQuantityChange(item, item.amount + 1)"
+              class="quantity-btn">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          
+          <div class="item-subtotal">
+            {{ item.subtotal | currency }}
+          </div>
+          
+          <button 
+            mat-icon-button 
+            color="warn" 
+            (click)="onRemoveItem(item.id)"
+            class="remove-button"
+            matTooltip="Remover item">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions *ngIf="invoiceItems.length > 0">
+    <button 
+      mat-raised-button 
+      color="accent" 
+      (click)="onIssueInvoice()"
+      [disabled]="!canIssueInvoice()"
+      class="issue-button">
+      <mat-icon *ngIf="!isLoading">receipt_long</mat-icon>
+      <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+      {{ isLoading ? 'Emitindo...' : 'Emitir Nota Fiscal' }}
+    </button>
+  </mat-card-actions>
+</mat-card> 
