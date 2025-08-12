@@ -12,7 +12,8 @@ Sistema integrado para gestão de estoque e emissão de notas fiscais desenvolvi
 
 ### 1. Serviços Backend
 
-Primeiro, clone e execute os serviços backend necessários:
+Primeiro, clone e execute os serviços backend necessários em:
+https://github.com/Jefferson-San/InvoiceProject
 
 ```bash
 git clone https://github.com/Jefferson-San/InvoiceProject.git
